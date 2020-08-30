@@ -15,7 +15,7 @@ namespace :csv_import do
   end
 
   desc "Seed csv data from db/csv_files to database table"
-  task mydata: :environment do
+  task seed_data: :environment do
     require "csv"
 
     def get_seed_data(file)
