@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Customer, type: :model do
+describe Item, type: :model do
   describe 'validations' do
     it { should_validate_presence_of :name }
     it { should_validate_presence_of :description }
