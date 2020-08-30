@@ -1,6 +1,20 @@
 namespace :csv_import do
-  desc "Seed csv data from db/csv_files to database table"
+  desc "Destroy all data and reset primary key sequence"
+  task destroy_data: :environment do
+    Transaction.destroy_all
+    InvoiceItem.destroy_all
+    Invoice.destroy_all
+    Item.destroy_all
+    Merchant.destroy_all
+    Customer.destroy_all
 
+    ActiveRecord::Base.connection.tables.each do |t|
+      ActiveRecord::Base.connection.reset_pk_sequence!(t)
+    end
+    "Destroyed all records; reset all primary keys"
+  end
+
+  desc "Seed csv data from db/csv_files to database table"
   task mydata: :environment do
     require "csv"
 
