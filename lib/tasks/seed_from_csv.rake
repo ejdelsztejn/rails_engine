@@ -1,7 +1,7 @@
 namespace :csv_import do
   desc "Destroy all data and reset primary key sequence"
   task destroy_data: :environment do
-    Transaction.destroy_all
+    Purchase.destroy_all
     InvoiceItem.destroy_all
     Invoice.destroy_all
     Item.destroy_all
