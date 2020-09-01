@@ -25,9 +25,13 @@ describe 'Items Endpoints' do
     expect(item[:data][:attributes][:id]).to eq(id)
   end
   it 'can create a new item' do
-    item_params = { name: 'Baby Snake', description: 'A little baby snake friend', unit_price: 4.50 }
+    merchant = Merchant.create(name: 'The Snake Charmer')
+    item_params = { name: 'Baby Snake', description: 'A little baby snake friend', unit_price: 4.50, merchant_id: merchant.id }
 
     post '/api/v1/items', params: { item: item_params }
     expect(response).to be_successful
+
+    item = Item.first
+    expect(item.id).to eq(item_params[:id])
   end
 end
