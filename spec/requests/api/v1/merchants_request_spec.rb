@@ -14,4 +14,14 @@ describe 'Merchants Endpoints' do
     expect(merchants[:data].first).to have_key(:type)
     expect(merchants[:data].first).to have_key(:attributes)
   end
+  it 'can show details for a given merchant' do
+    id = create(:merchant).id
+
+    get "/api/v1/merchants/#{id}"
+    expect(response).to be_successful
+
+    merchant = JSON.parse(response.body, symbolize_names: true)
+
+    expect(merchant[:data][:attributes][:id]).to eq(id)
+  end
 end
