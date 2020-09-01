@@ -32,6 +32,7 @@ describe 'Items Endpoints' do
     expect(response).to be_successful
 
     item = Item.first
-    expect(item.id).to eq(item_params[:id])
+
+    expect(item.name).to eq(item_params[:name])
   end
 end
