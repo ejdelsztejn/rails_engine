@@ -38,7 +38,7 @@ describe 'Items Endpoints' do
   it 'can update an existing item' do
     merchant_id = create(:merchant).id
     item = create(:item)
-    initial_price = item.price
+    initial_price = item.unit_price
     new_price = { price: 10.00 }
 
     patch "/api/v1/items/#{item.id}", params: new_price
