@@ -24,4 +24,10 @@ describe 'Items Endpoints' do
 
     expect(item[:data][:attributes][:id]).to eq(id)
   end
+  it 'can create a new item' do
+    item_params = { name: 'Baby Snake', description: 'A little baby snake friend', unit_price: 4.50 }
+
+    post '/api/v1/items', params: { item: item_params }
+    expect(response).to be_successful
+  end
 end
