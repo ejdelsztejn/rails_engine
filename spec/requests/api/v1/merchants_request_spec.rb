@@ -48,4 +48,14 @@ describe 'Merchants Endpoints' do
     expect(updated_merchant.name).to_not eq(initial_name)
     expect(updated_merchant.name).to eq(new_name[:name])
   end
+  it 'can destroy an existing merchant' do
+    merchant = create(:merchant)
+
+    expect(Merchant.find(merchant.id)).to eq(merchant)
+
+    delete "/api/v1/merchants/#{merchant.id}"
+    expect(response).to be_successful
+
+    expect{Merchant.find(merchant.id)}.to raise_error(ActiveRecord::RecordNotFound)
+  end
 end
