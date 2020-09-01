@@ -10,8 +10,8 @@ describe 'Merchants Endpoints' do
     merchants = JSON.parse(response.body, symbolize_names: true)
 
     expect(merchants[:data].count).to eq(5)
-    expect(items[:data].first).to have_key(:id)
-    expect(items[:data].first).to have_key(:type)
-    expect(items[:data].first).to have_key(:attributes)
+    expect(merchants[:data].first).to have_key(:id)
+    expect(merchants[:data].first).to have_key(:type)
+    expect(merchants[:data].first).to have_key(:attributes)
   end
 end
