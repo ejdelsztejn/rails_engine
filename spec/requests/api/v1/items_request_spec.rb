@@ -26,7 +26,7 @@ describe 'Items Endpoints' do
   end
   it 'can create a new item' do
     merchant_id = create(:merchant).id
-    item_params = { name: 'Baby Snake', description: 'A little baby snake friend', unit_price: 4.50, merchant_id: merchant.id }
+    item_params = { name: 'Baby Snake', description: 'A little baby snake friend', unit_price: 4.50, merchant_id: merchant_id }
 
     post '/api/v1/items', params: { item: item_params }
     expect(response).to be_successful
@@ -39,13 +39,15 @@ describe 'Items Endpoints' do
     merchant_id = create(:merchant).id
     item = create(:item)
     initial_price = item.unit_price
-    new_price = { price: 10.00 }
+    new_price = { unit_price: 10.00 }
+    headers = { "CONTENT_TYPE" => "application/json" }
 
-    patch "/api/v1/items/#{item.id}", params: { item: new_price }
+    patch "/api/v1/items/#{item.id}", params: JSON.generate({ item: new_price }), headers: headers
 
     expect(response).to be_successful
 
-    expect(item.unit_price).to_not eq(initial_price)
-    expect(item.name).to eq(new_price)
+    updated_item = Item.find(item.id)
+    expect(updated_item.unit_price).to_not eq(initial_price)
+    expect(updated_item.unit_price).to eq(new_price[:unit_price])
   end
 end
