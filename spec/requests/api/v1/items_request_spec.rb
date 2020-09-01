@@ -11,11 +11,10 @@ describe 'Items Endpoints' do
     expect(items.count).to eq(5)
   end
   it 'can show details for a given item' do
-    id = create(:item).id
+    item = create(:item)
 
-    get "/api/v1/items/#{id}"
+    get "/api/v1/items/#{item.id}"
 
     expect(response).to be_successful
-    expect(item[:id]).to eq(id)
   end
 end
