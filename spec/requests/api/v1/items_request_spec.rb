@@ -41,11 +41,11 @@ describe 'Items Endpoints' do
     initial_price = item.unit_price
     new_price = { price: 10.00 }
 
-    patch "/api/v1/items/#{item.id}", params: new_price
+    patch "/api/v1/items/#{item.id}", params: { item: new_price }
 
     expect(response).to be_successful
 
-    expect(item.price).to_not eq(initial_price)
+    expect(item.unit_price).to_not eq(initial_price)
     expect(item.name).to eq(new_price)
   end
 end

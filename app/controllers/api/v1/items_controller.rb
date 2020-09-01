@@ -12,6 +12,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def update
+    require "pry"; binding.pry
   end
 
   private
