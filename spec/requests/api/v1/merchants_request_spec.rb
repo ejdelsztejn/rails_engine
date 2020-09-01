@@ -24,4 +24,14 @@ describe 'Merchants Endpoints' do
 
     expect(merchant[:data][:attributes][:id]).to eq(id)
   end
+  it 'can create a new merchant' do
+    merchant_params = { name: 'Bird and Reptile Emporium' }
+
+    post '/api/v1/merchants', params: { merchant: merchant_params }
+    expect(response).to be_successful
+
+    merchant = Merchant.first
+
+    expect(merchant.name).to eq(merchant_params[:name])
+  end
 end
