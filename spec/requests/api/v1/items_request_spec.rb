@@ -6,7 +6,7 @@ describe 'Items Endpoints' do
 
     get '/api/v1/items'
     expect(response).to be_successful
-
+    require "pry"; binding.pry
     items = JSON.parse(response.body)
     expect(items.count).to eq(5)
   end
