@@ -36,7 +36,6 @@ describe 'Items Endpoints' do
     expect(item.name).to eq(item_params[:name])
   end
   it 'can update an existing item' do
-    merchant_id = create(:merchant).id
     item = create(:item)
     initial_price = item.unit_price
     new_price = { unit_price: 10.00 }
