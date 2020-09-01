@@ -34,4 +34,18 @@ describe 'Merchants Endpoints' do
 
     expect(merchant.name).to eq(merchant_params[:name])
   end
+  it 'can update an existing merchant' do
+    merchant = create(:merchant)
+    initial_name = merchant.name
+    new_name = { name: 'Bird and Reptile Emporium' }
+    headers = { "CONTENT_TYPE" => "application/json" }
+
+    patch "/api/v1/merchants/#{merchant.id}", params: JSON.generate({ merchant: new_name }), headers: headers
+
+    expect(response).to be_successful
+
+    updated_merchant = Merchant.find(merchant.id)
+    expect(updated_merchant.name).to_not eq(initial_name)
+    expect(updated_merchant.name).to eq(new_name[:name])
+  end
 end
