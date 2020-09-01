@@ -25,7 +25,7 @@ describe 'Items Endpoints' do
     expect(item[:data][:attributes][:id]).to eq(id)
   end
   it 'can create a new item' do
-    merchant = Merchant.create(name: 'The Snake Charmer')
+    merchant_id = create(:merchant).id
     item_params = { name: 'Baby Snake', description: 'A little baby snake friend', unit_price: 4.50, merchant_id: merchant.id }
 
     post '/api/v1/items', params: { item: item_params }
@@ -34,5 +34,18 @@ describe 'Items Endpoints' do
     item = Item.first
 
     expect(item.name).to eq(item_params[:name])
+  end
+  it 'can update an existing item' do
+    merchant_id = create(:merchant).id
+    item = create(:item)
+    initial_price = item.price
+    new_price = { price: 10.00 }
+
+    patch "/api/v1/items/#{item.id}", params: new_price
+
+    expect(response).to be_successful
+
+    expect(item.price).to_not eq(initial_price)
+    expect(item.name).to eq(new_price)
   end
 end
