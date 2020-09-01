@@ -50,4 +50,14 @@ describe 'Items Endpoints' do
     expect(updated_item.unit_price).to_not eq(initial_price)
     expect(updated_item.unit_price).to eq(new_price[:unit_price])
   end
+  it 'can destroy an existing item' do
+    item = create(:item)
+
+    expect(Item.find(item.id)).to eq(item)
+
+    delete "/api/v1/items/#{item.id}"
+    expect(response).to be_successful
+
+    expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
+  end
 end
