@@ -17,5 +17,6 @@ describe 'Merchants Items Endpoint' do
     expect(merchant_items[:data].first).to have_key(:id)
     expect(merchant_items[:data].first).to have_key(:type)
     expect(merchant_items[:data].first).to have_key(:attributes)
+    expect(merchant_items[:data].first[:attributes][:description]).to eq('A little friend')
   end
 end
