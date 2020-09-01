@@ -6,15 +6,22 @@ describe 'Items Endpoints' do
 
     get '/api/v1/items'
     expect(response).to be_successful
-    require "pry"; binding.pry
-    items = JSON.parse(response.body)
-    expect(items.count).to eq(5)
+
+    items = JSON.parse(response.body, symbolize_names: true)
+
+    expect(items[:data].count).to eq(5)
+    expect(items[:data].first).to have_key(:id)
+    expect(items[:data].first).to have_key(:type)
+    expect(items[:data].first).to have_key(:attributes)
   end
   it 'can show details for a given item' do
-    item = create(:item)
+    id = create(:item).id
 
-    get "/api/v1/items/#{item.id}"
-
+    get "/api/v1/items/#{id}"
     expect(response).to be_successful
+
+    item = JSON.parse(response.body, symbolize_names: true)
+
+    expect(item[:data][:attributes][:id]).to eq(id)
   end
 end
