@@ -8,7 +8,7 @@ describe 'Items Single Finder Endpoint' do
     item = Item.create(name: "Crocodile", description: 'A little friend', unit_price: 1.50, merchant_id: merchant.id)
 
     attribute = "name"
-    query = "oth"
+    query = "OTH"
 
     get "/api/v1/items/find?#{attribute}=#{query}"
 
