@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Merchants Single Finder Endpoint' do
-  it 'can return a single record that matches a set of criteria' do
+  xit 'can return a single record that matches a set of criteria' do
     create(:merchant)
 
     attribute = "name"
