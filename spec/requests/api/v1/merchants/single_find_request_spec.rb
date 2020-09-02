@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Merchants Single Finder Endpoint' do
   it 'can return a single record that matches a set of criteria' do
-    merchant = create(:merchant)
+    create(:merchant)
 
     attribute = "name"
     query = "zArD p"
@@ -13,7 +13,18 @@ describe 'Merchants Single Finder Endpoint' do
 
     merchant = JSON.parse(response.body, symbolize_names: true)
 
-    expect(merchant[:data][0][:type]).to eq('merchant')
-    expect(merchant[:data][0][:attributes][:name]).to eq('Lizard Palace')
+    expect(merchant[:data][:type]).to eq('merchant')
+    expect(merchant[:data][:attributes][:name]).to eq('Lizard Palace')
+
+    created_at = 'created_at'
+    date = Merchant.last.created_at
+
+    get "/api/v1/merchants/find?#{created_at}=#{date}"
+
+    expect(response).to be_successful
+
+    merchant_date = JSON.parse(response.body, symbolize_names: true)
+    require "pry"; binding.pry
+    expect(merchant_date[:data][:type]).to eq('merchant')
   end
 end

@@ -5,6 +5,10 @@ class Item < ApplicationRecord
   has_many :invoices, through: :invoice_items
 
   def self.find_item(attribute, value)
-    Item.where("#{attribute} ILIKE ?", "%#{value}%")
+    if attribute == 'created_at' || attribute == 'updated_at'
+      Item.find_by("to_char(#{attribute},'yyyy-mon-dd-HH-MI-SS') ILIKE ?", "%#{value}%")
+    else
+      Item.find_by("items.#{attribute}::text ILIKE ?", "%#{value}%")
+    end
   end
 end
