@@ -8,15 +8,19 @@ namespace :csv_import do
     Merchant.destroy_all
     Customer.destroy_all
 
-    ActiveRecord::Base.connection.tables.each do |t|
-      ActiveRecord::Base.connection.reset_pk_sequence!(t)
-    end
+    # ActiveRecord::Base.connection.tables.each do |t|
+    #   ActiveRecord::Base.connection.reset_pk_sequence!(t)
+    # end
     puts "Destroyed all records; reset all primary keys"
   end
 
   desc "Seed csv data from db/csv_files to database table"
   task seed_data: :environment do
     require "csv"
+
+    Rake::Task['db:drop'].execute
+    Rake::Task['db:create'].execute
+    Rake::Task['db:migrate'].execute
 
     def get_seed_data(file)
       csv = "db/csv_files/#{file}.csv"
@@ -68,5 +72,9 @@ namespace :csv_import do
       Purchase.create(row)
     end
     puts "File: transactions.csv imported"
+
+    ActiveRecord::Base.connection.tables.each do |t|
+      ActiveRecord::Base.connection.reset_pk_sequence!(t)
+    end
   end
 end
