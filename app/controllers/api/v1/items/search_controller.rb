@@ -1,10 +1,8 @@
 class Api::V1::Items::SearchController < ApplicationController
   def show
     attribute, value = query_params.to_h.first
-    @result = Item.where("#{attribute} ILIKE ?", "%#{value}%")
-    require "pry"; binding.pry
+    render json: ItemSerializer.new(Item.find_item(attribute, value))
   end
-
   private
 
   def query_params
