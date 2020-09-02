@@ -38,7 +38,7 @@ namespace :csv_import do
     get_seed_data("items").each do |row|
       row[:id] = row[:id].to_i
       row[:merchant_id] = row[:merchant_id].to_i
-      row[:unit_price] = (row[:merchant_id].to_f * 0.01).round(2)
+      row[:unit_price] = (row[:unit_price].to_f / 100).round(2)
       Item.create(row)
     end
     puts "File: items.csv imported"
@@ -56,7 +56,7 @@ namespace :csv_import do
       row[:item_id] = row[:item_id].to_i
       row[:invoice_id] = row[:invoice_id].to_i
       row[:quantity] = row[:quantity].to_i
-      row[:unit_price] = (row[:unit_price].to_f * 0.01).round(2)
+      row[:unit_price] = (row[:unit_price].to_f / 100).round(2)
       InvoiceItem.create(row)
     end
     puts "File: invoice_items.csv imported"

@@ -27,8 +27,9 @@ describe 'Items Endpoints' do
   it 'can create a new item' do
     merchant_id = create(:merchant).id
     item_params = { name: 'Baby Snake', description: 'A little baby snake friend', unit_price: 4.50, merchant_id: merchant_id }
+    headers = { "CONTENT_TYPE" => "application/json" }
 
-    post '/api/v1/items', params: { item: item_params }
+    post '/api/v1/items', params: item_params, headers: headers
     expect(response).to be_successful
 
     item = Item.first
