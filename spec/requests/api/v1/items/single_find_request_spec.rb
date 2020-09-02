@@ -7,7 +7,11 @@ describe 'Items Single Finder Endpoint' do
     item = Item.create(name: "Sloth", description: 'A little friend', unit_price: 1.50, merchant_id: merchant.id)
     item = Item.create(name: "Crocodile", description: 'A little friend', unit_price: 1.50, merchant_id: merchant.id)
 
-    get "/api/v1/items/find?name=sloth"
+    attribute = "name"
+    query = "NANA"
+
+    get "/api/v1/items/find?#{attribute}=#{query}"
+    
     expect(response).to be_successful
 
     item = JSON.parse(response.body, symbolize_names: true)
