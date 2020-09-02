@@ -4,6 +4,11 @@ class Api::V1::Merchants::SearchController < ApplicationController
     render json: MerchantSerializer.new(Merchant.find_merchant(attribute, value))
   end
 
+  def index
+    attribute, value = query_params.to_h.first
+    render json: MerchantSerializer.new(Merchant.find_all_merchants(attribute, value))
+  end
+
   def query_params
     params.permit(:name, :created_at, :updated_at)
   end
