@@ -27,8 +27,9 @@ describe 'Items Endpoints' do
   it 'can create a new item' do
     merchant_id = create(:merchant).id
     item_params = { name: 'Baby Snake', description: 'A little baby snake friend', unit_price: 4.50, merchant_id: merchant_id }
+    headers = { "CONTENT_TYPE" => "application/json" }
 
-    post '/api/v1/items', params: { item: item_params }
+    post '/api/v1/items', params: JSON.generate(item_params), headers: headers
     expect(response).to be_successful
 
     item = Item.first
@@ -36,13 +37,12 @@ describe 'Items Endpoints' do
     expect(item.name).to eq(item_params[:name])
   end
   it 'can update an existing item' do
-    merchant_id = create(:merchant).id
     item = create(:item)
     initial_price = item.unit_price
     new_price = { unit_price: 10.00 }
     headers = { "CONTENT_TYPE" => "application/json" }
 
-    patch "/api/v1/items/#{item.id}", params: JSON.generate({ item: new_price }), headers: headers
+    patch "/api/v1/items/#{item.id}", params: JSON.generate(new_price), headers: headers
 
     expect(response).to be_successful
 

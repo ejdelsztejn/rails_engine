@@ -26,8 +26,9 @@ describe 'Merchants Endpoints' do
   end
   it 'can create a new merchant' do
     merchant_params = { name: 'Bird and Reptile Emporium' }
+    headers = { "CONTENT_TYPE" => "application/json" }
 
-    post '/api/v1/merchants', params: { merchant: merchant_params }
+    post '/api/v1/merchants', params: JSON.generate(merchant_params), headers: headers
     expect(response).to be_successful
 
     merchant = Merchant.first
@@ -40,7 +41,7 @@ describe 'Merchants Endpoints' do
     new_name = { name: 'Bird and Reptile Emporium' }
     headers = { "CONTENT_TYPE" => "application/json" }
 
-    patch "/api/v1/merchants/#{merchant.id}", params: JSON.generate({ merchant: new_name }), headers: headers
+    patch "/api/v1/merchants/#{merchant.id}", params: JSON.generate(new_name), headers: headers
 
     expect(response).to be_successful
 

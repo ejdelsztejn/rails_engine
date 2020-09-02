@@ -8,15 +8,19 @@ namespace :csv_import do
     Merchant.destroy_all
     Customer.destroy_all
 
-    ActiveRecord::Base.connection.tables.each do |t|
-      ActiveRecord::Base.connection.reset_pk_sequence!(t)
-    end
+    # ActiveRecord::Base.connection.tables.each do |t|
+    #   ActiveRecord::Base.connection.reset_pk_sequence!(t)
+    # end
     puts "Destroyed all records; reset all primary keys"
   end
 
   desc "Seed csv data from db/csv_files to database table"
   task seed_data: :environment do
     require "csv"
+
+    Rake::Task['db:drop'].execute
+    Rake::Task['db:create'].execute
+    Rake::Task['db:migrate'].execute
 
     def get_seed_data(file)
       csv = "db/csv_files/#{file}.csv"
@@ -38,7 +42,7 @@ namespace :csv_import do
     get_seed_data("items").each do |row|
       row[:id] = row[:id].to_i
       row[:merchant_id] = row[:merchant_id].to_i
-      row[:unit_price] = (row[:merchant_id].to_f * 0.01).round(2)
+      row[:unit_price] = (row[:unit_price].to_f / 100).round(2)
       Item.create(row)
     end
     puts "File: items.csv imported"
@@ -56,7 +60,7 @@ namespace :csv_import do
       row[:item_id] = row[:item_id].to_i
       row[:invoice_id] = row[:invoice_id].to_i
       row[:quantity] = row[:quantity].to_i
-      row[:unit_price] = (row[:unit_price].to_f * 0.01).round(2)
+      row[:unit_price] = (row[:unit_price].to_f / 100).round(2)
       InvoiceItem.create(row)
     end
     puts "File: invoice_items.csv imported"
@@ -68,5 +72,9 @@ namespace :csv_import do
       Purchase.create(row)
     end
     puts "File: transactions.csv imported"
+
+    ActiveRecord::Base.connection.tables.each do |t|
+      ActiveRecord::Base.connection.reset_pk_sequence!(t)
+    end
   end
 end
