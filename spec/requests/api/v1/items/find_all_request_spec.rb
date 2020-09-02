@@ -22,6 +22,7 @@ describe 'Items Multiple Finder Endpoint' do
     items_by_name[:data].each do |datum|
       expect(datum[:type]).to eq('item')
       expect(datum[:attributes][:name]).to eq('Kangaroo')
+      expect(datum[:attributes][:name]).to_not eq('Sloth')
     end
 
     # unit_price = 'unit_price'
