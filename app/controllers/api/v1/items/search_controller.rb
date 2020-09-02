@@ -1,7 +1,8 @@
 class Api::V1::Items::SearchController < ApplicationController
   def show
-    require "pry"; binding.pry
     attribute, value = query_params.to_h.first
+    @result = Item.where("#{attribute} LIKE ?", "%#{value}%")
+    require "pry"; binding.pry
   end
 
   private
