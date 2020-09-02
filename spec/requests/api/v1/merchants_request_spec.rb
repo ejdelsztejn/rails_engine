@@ -28,7 +28,7 @@ describe 'Merchants Endpoints' do
     merchant_params = { name: 'Bird and Reptile Emporium' }
     headers = { "CONTENT_TYPE" => "application/json" }
 
-    post '/api/v1/merchants', params: merchant_params, headers: headers
+    post '/api/v1/merchants', params: JSON.generate(merchant_params), headers: headers
     expect(response).to be_successful
 
     merchant = Merchant.first
@@ -41,7 +41,7 @@ describe 'Merchants Endpoints' do
     new_name = { name: 'Bird and Reptile Emporium' }
     headers = { "CONTENT_TYPE" => "application/json" }
 
-    patch "/api/v1/merchants/#{merchant.id}", params: JSON.generate({ merchant: new_name }), headers: headers
+    patch "/api/v1/merchants/#{merchant.id}", params: JSON.generate(new_name), headers: headers
 
     expect(response).to be_successful
 
