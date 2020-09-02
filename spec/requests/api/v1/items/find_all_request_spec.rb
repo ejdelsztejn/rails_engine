@@ -18,8 +18,11 @@ describe 'Items Multiple Finder Endpoint' do
 
     items_by_name = JSON.parse(response.body, symbolize_names: true)
 
-    expect(item_name[:data][0][:type]).to eq('item')
-    expect(item_name[:data][0][:attributes][:name]).to eq('Kangaroo')
+    expect(items_by_name[:data].count).to eq(4)
+    items_by_name[:data].each do |datum|
+      expect(datum[:type]).to eq('item')
+      expect(datum[:attributes][:name]).to eq('Kangaroo')
+    end
 
     # unit_price = 'unit_price'
     # unit_price_query = 8

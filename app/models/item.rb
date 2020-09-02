@@ -11,4 +11,12 @@ class Item < ApplicationRecord
       Item.find_by("items.#{attribute}::text ILIKE ?", "%#{value}%")
     end
   end
+
+  def self.find_all_items(attribute, value)
+    if attribute == 'created_at' || attribute == 'updated_at'
+      Item.where("to_char(#{attribute},'yyyy-mon-dd-HH-MI-SS') ILIKE ?", "%#{value}%")
+    else
+      Item.where("items.#{attribute}::text ILIKE ?", "%#{value}%")
+    end
+  end
 end
