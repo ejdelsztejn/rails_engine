@@ -13,7 +13,7 @@ describe 'Merchants Single Finder Endpoint' do
 
     merchant = JSON.parse(response.body, symbolize_names: true)
 
-    expect(merchant[:data][:type]).to eq('merchant')
-    expect(merchant[:data][:attributes][:name]).to eq('Lizard Palace')
+    expect(merchant[:data][0][:type]).to eq('merchant')
+    expect(merchant[:data][0][:attributes][:name]).to eq('Lizard Palace')
   end
 end

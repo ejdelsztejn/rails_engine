@@ -15,8 +15,8 @@ describe 'Items Single Finder Endpoint' do
     expect(response).to be_successful
 
     item = JSON.parse(response.body, symbolize_names: true)
-    
-    expect(item[:data][:type]).to eq('item')
-    expect(item[:data][:attributes][:name]).to eq('Sloth')
+
+    expect(item[:data][0][:type]).to eq('item')
+    expect(item[:data][0][:attributes][:name]).to eq('Sloth')
   end
 end
