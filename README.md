@@ -1,6 +1,6 @@
 # Rails Engine
 
-This application is the backend portion of the (Rails Engine)[https://backend.turing.io/module3/projects/rails_engine/] project for the (Turing School of Software and Design)[turing.io].
+This application is the backend portion of the [Rails Engine](https://backend.turing.io/module3/projects/rails_engine/) project for the [Turing School of Software and Design](turing.io).
 
 ## Versions
 - Ruby 2.5.3
