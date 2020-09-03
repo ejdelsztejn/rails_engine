@@ -7,6 +7,7 @@ describe 'Items Merchant Endpoint' do
 
     get "/api/v1/items/#{item.id}/merchant"
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     item_merchant = JSON.parse(response.body, symbolize_names: true)
 

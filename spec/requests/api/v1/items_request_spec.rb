@@ -6,6 +6,7 @@ describe 'Items Endpoints' do
 
     get '/api/v1/items'
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     items = JSON.parse(response.body, symbolize_names: true)
 
@@ -19,6 +20,7 @@ describe 'Items Endpoints' do
 
     get "/api/v1/items/#{id}"
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     item = JSON.parse(response.body, symbolize_names: true)
 
@@ -31,6 +33,7 @@ describe 'Items Endpoints' do
 
     post '/api/v1/items', params: JSON.generate(item_params), headers: headers
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     item = Item.first
 
@@ -45,6 +48,7 @@ describe 'Items Endpoints' do
     patch "/api/v1/items/#{item.id}", params: JSON.generate(new_price), headers: headers
 
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     updated_item = Item.find(item.id)
     expect(updated_item.unit_price).to_not eq(initial_price)
@@ -57,6 +61,7 @@ describe 'Items Endpoints' do
 
     delete "/api/v1/items/#{item.id}"
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
