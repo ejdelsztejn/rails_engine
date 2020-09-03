@@ -33,6 +33,6 @@ describe 'Revenue for a Given Merchant Endpoint' do
 
     total_revenue = JSON.parse(response.body, symbolize_names: true)
 
-    expect(total_revenue[:data][:attributes][:revenue]).to eq(7500)
+    expect(total_revenue[:data][:attributes][:revenue]).to eq(250)
   end
 end
