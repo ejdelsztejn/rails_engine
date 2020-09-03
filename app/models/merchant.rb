@@ -4,19 +4,24 @@ class Merchant < ApplicationRecord
   has_many :invoices
   has_many :invoice_items, through: :invoices
 
+  scope :single_by_date, -> (attribute, value) {find_by("to_char(#{attribute},'yyyy-mon-dd-HH-MI-SS') ILIKE ?", "%#{value}%")}
+  scope :single_by_attribute, -> (attribute, value) {find_by("merchants.#{attribute}::text ILIKE ?", "%#{value}%")}
+  scope :multi_by_date, -> (attribute, value) {where("to_char(#{attribute},'yyyy-mon-dd-HH-MI-SS') ILIKE ?", "%#{value}%")}
+  scope :multi_by_attribute, -> (attribute, value) {where("merchants.#{attribute}::text ILIKE ?", "%#{value}%")}
+
   def self.find_merchant(attribute, value)
     if attribute == 'created_at' || attribute == 'updated_at'
-      Merchant.find_by("to_char(#{attribute},'yyyy-mon-dd-HH-MI-SS') ILIKE ?", "%#{value}%")
+      single_by_date(attribute, value)
     else
-      Merchant.find_by("merchants.#{attribute} ILIKE ?", "%#{value}%")
+      single_by_attribute(attribute, value)
     end
   end
 
   def self.find_all_merchants(attribute, value)
     if attribute == 'created_at' || attribute == 'updated_at'
-      Merchant.where("to_char(#{attribute},'yyyy-mon-dd-HH-MI-SS') ILIKE ?", "%#{value}%")
+      multi_by_date(attribute, value)
     else
-      Merchant.where("merchants.#{attribute}::text ILIKE ?", "%#{value}%")
+      multi_by_attribute(attribute, value)
     end
   end
 
