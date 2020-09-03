@@ -28,13 +28,13 @@ describe 'Merchants with Most Revenue Endpoint' do
     end
 
     get "/api/v1/merchants/most_revenue?quantity=3"
-    
+
     expect(response).to be_successful
 
     merchants = JSON.parse(response.body, symbolize_names: true)
-
-    expect(merchants[:data].first[:id]).to eq(merchant_3.id)
-    expect(merchants[:data][1][:id]).to eq(merchant_3.id)
-    expect(merchants[:data].last[:id]).to eq(merchant_2.id)
+    
+    expect(merchants[:data].first[:id]).to eq(merchant_3.id.to_s)
+    expect(merchants[:data][1][:id]).to eq(merchant_1.id.to_s)
+    expect(merchants[:data].last[:id]).to eq(merchant_2.id.to_s)
   end
 end

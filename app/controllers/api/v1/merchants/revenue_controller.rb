@@ -1,14 +1,7 @@
 class Api::V1::Merchants::RevenueController < ApplicationController
   def most_revenue
     quantity = quantity_params[:quantity]
-    # create RevenueFacade
-    # create Revenue PORO
-    # create RevenueSerializer
-
-    # within RevenueFacade, create find_merchants method
-    # within the find_merchants method, call a get_merchants_revenue method with ActiveRecord query
-    # using data from get_merchants_revenue, iterate through and create a new instance of a Revenue PORO
-    # within this method, render json with the RevenueSerializer and a new instance of the RevenueFacade + find_merchants
+    render json: MerchantSerializer.new(Merchant.get_most_revenue(quantity))
   end
 
   private
