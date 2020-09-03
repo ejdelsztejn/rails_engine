@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Merchants with Most Revenue Endpoint' do
-  it 'can return a list of all items that belong to a given merchant' do
+describe 'Revenue for a Given Merchant Endpoint' do
+  it 'can return the total revenue given merchant' do
     merchant_1 = create(:merchant)
     merchant_2 = create(:merchant)
     merchant_3 = create(:merchant)
@@ -27,14 +27,12 @@ describe 'Merchants with Most Revenue Endpoint' do
       create(:purchase, invoice: invoice)
     end
 
-    get "/api/v1/merchants/most_revenue?quantity=3"
+    get "/api/v1/merchants/#{merchant_2.id}/revenue"
 
     expect(response).to be_successful
 
-    merchants = JSON.parse(response.body, symbolize_names: true)
+    total_revenue = JSON.parse(response.body, symbolize_names: true)
 
-    expect(merchants[:data].first[:id]).to eq(merchant_3.id.to_s)
-    expect(merchants[:data][1][:id]).to eq(merchant_1.id.to_s)
-    expect(merchants[:data].last[:id]).to eq(merchant_2.id.to_s)
+    expect(total_revenue[:data][:attributes][:revenue]).to eq(7500)
   end
 end
