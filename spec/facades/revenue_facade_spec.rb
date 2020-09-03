@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'RevenueFacade' do
-  before :each do
+  it 'find_merchants' do
     @revenue = RevenueFacade.new
     merchant_1 = create(:merchant)
     merchant_2 = create(:merchant)
@@ -27,10 +27,8 @@ RSpec.describe 'RevenueFacade' do
       create(:invoice_item, invoice: invoice, item: item_3, quantity: 1000)
       create(:purchase, invoice: invoice)
     end
-  end
 
-  xit 'find_merchants' do
-    merchants = @revenue.find_merchants(3)
+    revenue = @revenue.find_revenue(merchant_1.id)
     expect(merchants.class).to eq(Array)
   end
 end
