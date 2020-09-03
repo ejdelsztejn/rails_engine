@@ -5,7 +5,6 @@ class Api::V1::Merchants::RevenueController < ApplicationController
 
   def revenue
     id = query_params[:id]
-    require "pry"; binding.pry
   end
 
   private
