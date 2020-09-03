@@ -28,7 +28,7 @@ RSpec.describe 'RevenueFacade' do
       create(:purchase, invoice: invoice)
     end
 
-    expect(@revenue.find_revenue(merchant_1).class).to eq(Float)
-    expect(@revenue.find_revenue(merchant_1)).to eq(2500.0)
+    expect(@revenue.merchant_revenue(merchant_1).class).to eq(Float)
+    expect(@revenue.merchant_revenue(merchant_1)).to eq(2500.0)
   end
 end

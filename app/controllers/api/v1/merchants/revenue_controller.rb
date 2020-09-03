@@ -4,7 +4,7 @@ class Api::V1::Merchants::RevenueController < ApplicationController
   end
 
   def revenue
-    id = query_params[:id]
+    render json: RevenueSerializer.new(RevenueFacade.new.merchant_revenue(Merchant.find(query_params[:id])))
   end
 
   private

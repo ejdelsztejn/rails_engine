@@ -1,5 +1,5 @@
 class RevenueFacade
-  def find_revenue(merchant)
-    merchant.get_revenue(merchant.id)
+  def merchant_revenue(merchant)
+    merchant.get_revenue
   end
 end
