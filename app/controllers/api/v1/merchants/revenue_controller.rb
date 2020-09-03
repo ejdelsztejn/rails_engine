@@ -1,7 +1,6 @@
 class Api::V1::Merchants::RevenueController < ApplicationController
   def most_revenue
     quantity = quantity_params[:quantity]
-    require "pry"; binding.pry
     # create RevenueFacade
     # create Revenue PORO
     # create RevenueSerializer
