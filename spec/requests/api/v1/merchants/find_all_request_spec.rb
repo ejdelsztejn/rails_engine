@@ -14,6 +14,7 @@ describe 'Merchants Multiple Finder Endpoint' do
     get "/api/v1/merchants/find_all?#{name}=#{name_query}"
 
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     merchants_by_name = JSON.parse(response.body, symbolize_names: true)
 

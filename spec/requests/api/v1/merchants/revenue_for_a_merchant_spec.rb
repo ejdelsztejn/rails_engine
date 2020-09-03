@@ -30,6 +30,7 @@ describe 'Revenue for a Given Merchant Endpoint' do
     get "/api/v1/merchants/#{merchant_2.id}/revenue"
 
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     total_revenue = JSON.parse(response.body, symbolize_names: true)
 

@@ -13,6 +13,7 @@ describe 'Items Single Finder Endpoint' do
     get "/api/v1/items/find?#{name}=#{name_query}"
 
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     item_name = JSON.parse(response.body, symbolize_names: true)
 
@@ -25,6 +26,7 @@ describe 'Items Single Finder Endpoint' do
     get "/api/v1/items/find?#{unit_price}=#{unit_price_query}"
 
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     item_price = JSON.parse(response.body, symbolize_names: true)
 

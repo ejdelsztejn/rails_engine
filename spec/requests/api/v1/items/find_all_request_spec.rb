@@ -15,6 +15,7 @@ describe 'Items Multiple Finder Endpoint' do
     get "/api/v1/items/find_all?#{name}=#{name_query}"
 
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     items_by_name = JSON.parse(response.body, symbolize_names: true)
 

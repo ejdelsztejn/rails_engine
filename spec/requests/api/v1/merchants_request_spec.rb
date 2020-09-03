@@ -6,6 +6,7 @@ describe 'Merchants Endpoints' do
 
     get '/api/v1/merchants'
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     merchants = JSON.parse(response.body, symbolize_names: true)
 
@@ -19,6 +20,7 @@ describe 'Merchants Endpoints' do
 
     get "/api/v1/merchants/#{id}"
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     merchant = JSON.parse(response.body, symbolize_names: true)
 
@@ -30,6 +32,7 @@ describe 'Merchants Endpoints' do
 
     post '/api/v1/merchants', params: JSON.generate(merchant_params), headers: headers
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     merchant = Merchant.first
 
@@ -44,6 +47,7 @@ describe 'Merchants Endpoints' do
     patch "/api/v1/merchants/#{merchant.id}", params: JSON.generate(new_name), headers: headers
 
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     updated_merchant = Merchant.find(merchant.id)
     expect(updated_merchant.name).to_not eq(initial_name)
@@ -56,6 +60,7 @@ describe 'Merchants Endpoints' do
 
     delete "/api/v1/merchants/#{merchant.id}"
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     expect{Merchant.find(merchant.id)}.to raise_error(ActiveRecord::RecordNotFound)
   end

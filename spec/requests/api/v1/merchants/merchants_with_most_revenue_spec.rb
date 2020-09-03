@@ -30,6 +30,7 @@ describe 'Merchants with Most Revenue Endpoint' do
     get "/api/v1/merchants/most_revenue?quantity=3"
 
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     merchants = JSON.parse(response.body, symbolize_names: true)
 
