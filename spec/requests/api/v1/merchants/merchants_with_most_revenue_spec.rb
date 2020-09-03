@@ -6,28 +6,29 @@ describe 'Merchants with Most Revenue Endpoint' do
     merchant_2 = create(:merchant)
     merchant_3 = create(:merchant)
 
-    item_1 = create(:item, unit_price: 10.00, merchant_id: merchant_1.id)
-    item_2 = create(:item, unit_price: 15.00, merchant_id: merchant_2.id)
-    item_3 = create(:item, unit_price: 5.00, merchant_id: merchant_3.id)
+    item_1 = create(:item, unit_price: 10.00, merchant: merchant_1)
+    item_2 = create(:item, unit_price: 15.00, merchant: merchant_2)
+    item_3 = create(:item, unit_price: 5.00, merchant: merchant_3)
 
-    5.times { create(:invoice, merchant_id: merchant_1.id) }
-    5.times { create(:invoice, merchant_id: merchant_2.id) }
-    5.times { create(:invoice, merchant_id: merchant_3.id) }
+    5.times { create(:invoice, merchant: merchant_1) }
+    5.times { create(:invoice, merchant: merchant_2) }
+    5.times { create(:invoice, merchant: merchant_3) }
 
     merchant_1.invoices.each do |invoice|
-      create(:invoice_item, invoice_id: invoice.id, item_id: item_1.id, quantity: 100)
-      create(:purchase)
+      create(:invoice_item, invoice: invoice, item: item_1, quantity: 100)
+      create(:purchase, invoice: invoice)
     end
     merchant_2.invoices.each do |invoice|
-      create(:invoice_item, invoice_id: invoice.id, item_id: item_2.id, quantity: 10)
-      create(:purchase)
+      create(:invoice_item, invoice: invoice, item: item_2, quantity: 10)
+      create(:purchase, invoice: invoice)
     end
     merchant_3.invoices.each do |invoice|
-      create(:invoice_item, invoice_id: invoice.id, item_id: item_3.id, quantity: 1000)
-      create(:purchase)
+      create(:invoice_item, invoice: invoice, item: item_3, quantity: 1000)
+      create(:purchase, invoice: invoice)
     end
 
     get "/api/v1/merchants/most_revenue?quantity=3"
+    
     expect(response).to be_successful
 
     merchants = JSON.parse(response.body, symbolize_names: true)
