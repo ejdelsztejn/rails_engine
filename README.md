@@ -1,24 +1,28 @@
-# README
+# Rails Engine
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application is the backend portion of the (Rails Engine)[https://backend.turing.io/module3/projects/rails_engine/] project for the (Turing School of Software and Design)[turing.io].
 
-Things you may want to cover:
+## Versions
+Ruby 2.5.3
+Rails 5.2.4.3
 
-* Ruby version
+## Setup
+`$ git clone git@github.com:ejdelsztejn/rails-engine.git`
 
-* System dependencies
+## Configuration
+`$ bundle`
+`$ rails g rspec:install`
 
-* Configuration
+## Database Setup
+`$ bundle exec rails db:create`
+`$ bundle exec rails db:migrate`
+`$ bundle exec rake csv_import:destroy_data`
+`$ bundle exec rake csv_import:seed_data`
 
-* Database creation
+## Testing
+`$ bundle exec rspec`
 
-* Database initialization
+### Schema Design
 
-* How to run the test suite
+<img width="747" alt="Schema Design" src="https://user-images.githubusercontent.com/43380627/92115086-ea14f580-edbf-11ea-8dd7-1c756e267024.png">
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
